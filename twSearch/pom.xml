@@ -18,7 +18,7 @@
 		<java.version>1.8</java.version>
 		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
 		<thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
-		<spring.boot.version>2.1.6.RELEASE</spring.boot.version>
+		<spring.boot.version>2.2.1.RELEASE</spring.boot.version>
 	</properties>
 
 	<dependencies>
