@@ -1,4 +1,4 @@
-package com.tty.twSearch.csvutil;
+package com.tty.twSearch.pojo;
 
 import java.util.Date;
 import lombok.Data;

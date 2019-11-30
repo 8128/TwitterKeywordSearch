@@ -1,6 +1,6 @@
 package com.tty.twSearch.dao;
 
-import com.tty.twSearch.csvutil.TwitterData;
+import com.tty.twSearch.pojo.TwitterData;
 
 import java.util.List;
 

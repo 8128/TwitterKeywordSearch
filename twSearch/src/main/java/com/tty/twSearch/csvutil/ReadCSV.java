@@ -2,6 +2,7 @@ package com.tty.twSearch.csvutil;
 
 import com.alibaba.excel.EasyExcel;
 import com.tty.twSearch.dao.CsvDAO;
+import com.tty.twSearch.pojo.TwitterData;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
