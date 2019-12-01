@@ -3,7 +3,7 @@ package com.tty.twsearch.csvutil;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSON;
-import com.tty.twsearch.dao.CsvDAO;
+import com.tty.twsearch.mapper.TwitterMapper;
 import com.tty.twsearch.pojo.TwitterData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,15 +22,15 @@ public class TwitterDataListener extends AnalysisEventListener<TwitterData> {
      * 每隔5条存储数据库，实际使用中可以3000条，然后清理list ，方便内存回收
      */
     private static final int BATCH_COUNT = 5;
-    List<TwitterData> list = new ArrayList<TwitterData>();
+    private List<TwitterData> list = new ArrayList<TwitterData>();
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
-    private CsvDAO csvDAO;
+    private TwitterMapper twitterMapper;
 
-    public TwitterDataListener(CsvDAO csvDAO) {
+    public TwitterDataListener(TwitterMapper twitterMapper) {
         // 这里是demo，所以随便new一个。实际使用如果到了spring,请使用下面的有参构造函数
-        this.csvDAO = csvDAO;
+        this.twitterMapper = twitterMapper;
     }
 
     /**
@@ -69,7 +69,7 @@ public class TwitterDataListener extends AnalysisEventListener<TwitterData> {
      */
     private void saveData() {
         LOGGER.info("{}条数据，开始存储数据库！", list.size());
-        csvDAO.save(list);
+        twitterMapper.saveList(list);
         LOGGER.info("存储数据库成功！");
     }
 }
