@@ -1,4 +1,4 @@
-package com.tty.twSearch.pojo;
+package com.tty.twsearch.pojo;
 
 import java.util.Date;
 import lombok.Data;

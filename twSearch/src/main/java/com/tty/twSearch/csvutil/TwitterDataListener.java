@@ -1,10 +1,10 @@
-package com.tty.twSearch.csvutil;
+package com.tty.twsearch.csvutil;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSON;
-import com.tty.twSearch.dao.CsvDAO;
-import com.tty.twSearch.pojo.TwitterData;
+import com.tty.twsearch.dao.CsvDAO;
+import com.tty.twsearch.pojo.TwitterData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

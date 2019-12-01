@@ -1,4 +1,4 @@
-package com.tty.twSearch.controller;
+package com.tty.twsearch.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
