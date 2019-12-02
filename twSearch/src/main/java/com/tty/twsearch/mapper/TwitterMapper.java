@@ -15,8 +15,11 @@ import java.util.List;
 @Repository
 public interface TwitterMapper {
 
-    @Select("select * from t_twitter_temp")
+    @Select("select * from t_twitter")
     List<TwitterData> getAll();
+
+    @Select("select * from t_twitter_temp")
+    List<TwitterData> getAllTemp();
 
     @Insert({"<script>",
                 "insert into t_twitter_temp values",

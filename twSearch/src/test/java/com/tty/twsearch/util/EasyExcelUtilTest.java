@@ -1,7 +1,6 @@
-package com.tty.twsearch.csvutil;
+package com.tty.twsearch.util;
 
 import com.tty.twsearch.BaseTest;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 class EasyExcelUtilTest extends BaseTest {
