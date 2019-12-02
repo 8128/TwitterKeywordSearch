@@ -51,8 +51,8 @@ public class HeapSortImpl implements HeapSort {
         List<TwitterData> ans = new ArrayList<>();
         while (!pq.isEmpty()) {
             ans.add(pq.poll());
-            Collections.reverse(ans);
         }
+        Collections.reverse(ans);
         return ans;
     }
 
