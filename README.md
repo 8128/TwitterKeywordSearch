@@ -1,5 +1,7 @@
 # Twitter Keyword Search
 
+[![Build Status](https://travis-ci.com/8128/TwitterKeywordSearch.svg?branch=master)](https://travis-ci.com/8128/TwitterKeywordSearch)
+
 The Twitter Keyword Search is a Springboot web application for keyword searching.
 
 ## Architecture
