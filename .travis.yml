@@ -4,4 +4,5 @@ jdk:
   - openjdk8
 
 script:
+  - cd twSearch
   - mvn clean package -DskipTests=true
