@@ -23,14 +23,11 @@
 				<!-- Menu -->
 					<nav id="menu">
 						<ul class="links">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="landing.html">Landing</a></li>
-							<li><a href="generic.html">Generic</a></li>
-							<li><a href="elements.html">Elements</a></li>
+							<li><a th:href="@{/search}">Search</a></li>
+							<li><a th:href="@{/result}">Last Result</a></li>
 						</ul>
 						<ul class="actions stacked">
-							<li><a href="#" class="button primary fit">Get Started</a></li>
-							<li><a href="#" class="button fit">Log In</a></li>
+							<li><a th:href="@{/}" class="button primary fit">Home Page</a></li>
 						</ul>
 					</nav>
 
@@ -44,7 +41,7 @@
 								<p>Using different algorithms to find the most relevant
 									<br>twitters from database or self-uploaded files</p>
 								<ul class="actions">
-									<li><a href="#contact" class="button next scrolly">Get Started</a></li>
+									<li><a th:href="@{/search}" class="button next scrolly">Get Started</a></li>
 								</ul>
 							</div>
 						</div>
@@ -60,7 +57,7 @@
 								<li><a href="https://www.linkedin.com/in/tty/" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
 							</ul>
 							<ul class="copyright">
-								<li>&copy; tty8128@bu.edu</li><li>Design: <a href="#">Tianyi Tang</a></li>
+								<li>&copy; tty8128@bu.edu</li><li>Design: <a href="mailto:tty8128@bu.edu">Tianyi Tang</a></li>
 							</ul>
 						</div>
 					</footer>

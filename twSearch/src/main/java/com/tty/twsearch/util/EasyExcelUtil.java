@@ -51,11 +51,9 @@ public class EasyExcelUtil {
     }
 
     public void readExcel (String fileName) {
-        // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
         ExcelReader excelReader = EasyExcel.read(fileName, TwitterData.class, new TwitterDataListener(twitterMapper)).build();
         ReadSheet readSheet = EasyExcel.readSheet(0).build();
         excelReader.read(readSheet);
-        // 这里千万别忘记关闭，读的时候会创建临时文件，到时磁盘会崩的
         excelReader.finish();
     }
 }

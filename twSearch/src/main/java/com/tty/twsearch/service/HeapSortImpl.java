@@ -21,22 +21,12 @@ public class HeapSortImpl implements HeapSort {
 
     @Override
     public List<TwitterData> topK(int k, String[] words, List<TwitterData> inputList) {
+        // using HashMap will slow down the whole process in testing
         HashSet<String> hs = new HashSet<>();
         hs.addAll(Arrays.asList(words));
-        //HashMap<TwitterData, Integer> hm = new HashMap<>();
         PriorityQueue<TwitterData> pq = new PriorityQueue<>(new Comparator<TwitterData>() {
             @Override
             public int compare(TwitterData o1, TwitterData o2) {
-                /**
-                Integer sim1 = hm.getOrDefault(o1, returnSimilarity(o1.getTwString(), hs));
-                if (!hm.containsKey(o1)) {
-                    hm.put(o1, sim1);
-                }
-                Integer sim2 = hm.getOrDefault(o2, returnSimilarity(o2.getTwString(), hs));
-                if (!hm.containsKey(o2)) {
-                    hm.put(o2, sim2);
-                }
-                 **/
                 Integer sim1 = returnSimilarity(o1.getTwString(), hs);
                 Integer sim2 = returnSimilarity(o2.getTwString(), hs);
                 return sim1.compareTo(sim2);

@@ -2,7 +2,6 @@ package com.tty.twsearch.mapper;
 
 import com.tty.twsearch.pojo.TwitterData;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

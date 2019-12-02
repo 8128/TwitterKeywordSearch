@@ -15,4 +15,14 @@ public class MainController {
     public String mainPage(){
         return "index";
     }
+
+    @RequestMapping("/search")
+    public String searchPage() {
+        return "search";
+    }
+
+    @RequestMapping("/result")
+    public String resultPage() {
+        return "result";
+    }
 }
