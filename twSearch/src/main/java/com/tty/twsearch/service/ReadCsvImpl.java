@@ -39,7 +39,6 @@ public class ReadCsvImpl implements ReadCsv{
                 tw.setTwString(item[1]);
                 list.add(tw);
                 if (list.size() > 20) {
-                    //System.out.println(list);
                     twitterMapper.saveListTemp(list);
                     list = new ArrayList<>();
                 }

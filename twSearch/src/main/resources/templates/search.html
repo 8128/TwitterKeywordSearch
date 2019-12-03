@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Twitter Keyword Search</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+	<noscript><link rel="stylesheet" th:href="@{/assets/css/noscript.css}" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<!-- Header -->
+	<header id="header" class="alt">
+		<a href="index.html" class="logo"><strong>Twitter Keyword Search</strong> <span>by Tianyi</span></a>
+		<nav>
+			<a href="#menu">Menu</a>
+		</nav>
+	</header>
+
+	<!-- Menu -->
+	<nav id="menu">
+		<ul class="links">
+			<li><a th:href="@{/search}">Search</a></li>
+			<li><a th:href="@{/result}">Last Result</a></li>
+		</ul>
+		<ul class="actions stacked">
+			<li><a th:href="@{/}" class="button primary fit">Home Page</a></li>
+		</ul>
+	</nav>
+
+	<!-- Main -->
+	<div id="main" class="alt">
+
+		<!-- One -->
+		<section id="one">
+			<div class="inner">
+				<header class="major">
+					<h2>Search</h2>
+				</header>
+				<span class="image main"><img th:src="@{/images/pic11.jpg}" alt="" /></span>
+				<p>Search the internal database by inputting your keywords below by separating all the keywords using space. Eg. "answer love cute have"
+					<br>You can also search your own files by uploading CSV file with Col1:Date, Col2:Twitter Text format. The first row will be ignored automatically.</p>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Contact -->
+	<section id="contact">
+		<div class="inner">
+			<section>
+				<form method="post" action="/searchin">
+					<h4>Search Internal Dataset</h4>
+					<div class="fields">
+						<div class="field">
+							<label for="keywordsin">Keywords</label>
+							<textarea name="message" id="keywordsin" rows="5" placeholder="Input your key words and separate them using spaces..."></textarea>
+						</div>
+					</div>
+					<ul class="actions">
+						<li><input type="text" placeholder="Number to display" id="kin"></li>
+						<li><input type="submit" value="Search"/></li>
+						<li><input type="reset" value="Clear" /></li>
+					</ul>
+				</form>
+			</section>
+			<section>
+				<form method="POST" action="/searchex" enctype="multipart/form-data">
+					<h4>Search External Dataset</h4>
+					<input type="file" name="file" class="icon" /><br/><br/>
+					<div class="fields">
+						<div class="field">
+							<label for="keywordsex">Keywords</label>
+							<textarea name="message" id="keywordsex" rows="3" placeholder="Input your key words and separate them using spaces..."></textarea>
+						</div>
+					</div>
+					<ul class="actions">
+						<li><input type="text" placeholder="Number to display" id="kex"></li>
+						<li><input type="submit" value="Search"/></li>
+						<li><input type="reset" value="Clear" /></li>
+					</ul>
+				</form>
+			</section>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				<li><a href="https://facebook.com/tty8128" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+				<li><a href="https://www.instagram.com/adkmrx/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="https://github.com/8128/" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+				<li><a href="https://www.linkedin.com/in/tty/" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; tty8128@bu.edu</li><li>Design: <a href="mailto:tty8128@bu.edu">Tianyi Tang</a></li>
+			</ul>
+		</div>
+	</footer>
+
+</div>
+
+<!-- Scripts -->
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/jquery.scrolly.min.js}"></script>
+<script th:src="@{/assets/js/jquery.scrollex.min.js}"></script>
+<script th:src="@{/assets/js/browser.min.js}"></script>
+<script th:src="@{/assets/js/breakpoints.min.js}"></script>
+<script th:src="@{/assets/js/util.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>
