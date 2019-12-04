@@ -72,15 +72,15 @@ public class MainController {
         HashMap<String, Object> hm = new HashMap<>();
         String[] words = keywords.split(" ");
         long startTime = System.currentTimeMillis();
-        List<TwitterData> bucketList = bucketSort.topKInternal(Integer.valueOf(k), words);
-        long endTime = System.currentTimeMillis();
-        hm.put("bucketSortTime", String.valueOf(endTime - startTime) + "ms");
-        hm.put("bucketList", bucketList);
-        startTime = System.currentTimeMillis();
         List<TwitterData> heapList = heapSort.topKInternal(Integer.valueOf(k), words);
-        endTime = System.currentTimeMillis();
-        hm.put("heapSortTime", String.valueOf(endTime - startTime) + "ms");
+        long endTime = System.currentTimeMillis();
+        hm.put("heapSortTime", (endTime - startTime) + "ms");
         hm.put("heapList", heapList);
+        startTime = System.currentTimeMillis();
+        List<TwitterData> bucketList = bucketSort.topKInternal(Integer.valueOf(k), words);
+        endTime = System.currentTimeMillis();
+        hm.put("bucketSortTime", (endTime - startTime) + "ms");
+        hm.put("bucketList", bucketList);
         return resultPage(model, hm);
     }
 
@@ -99,15 +99,15 @@ public class MainController {
             readCsv.readCsv(newFile.getAbsolutePath());
             newFile.delete();
             long startTime = System.currentTimeMillis();
-            List<TwitterData> bucketList = bucketSort.topKTemp(Integer.valueOf(k), words);
-            long endTime = System.currentTimeMillis();
-            hm.put("bucketSortTime", String.valueOf(endTime - startTime) + "ms");
-            hm.put("bucketList", bucketList);
-            startTime = System.currentTimeMillis();
             List<TwitterData> heapList = heapSort.topKTemp(Integer.valueOf(k), words);
-            endTime = System.currentTimeMillis();
-            hm.put("heapSortTime", String.valueOf(endTime - startTime) + "ms");
+            long endTime = System.currentTimeMillis();
+            hm.put("heapSortTime", (endTime - startTime) + "ms");
             hm.put("heapList", heapList);
+            startTime = System.currentTimeMillis();
+            List<TwitterData> bucketList = bucketSort.topKTemp(Integer.valueOf(k), words);
+            endTime = System.currentTimeMillis();
+            hm.put("bucketSortTime", (endTime - startTime) + "ms");
+            hm.put("bucketList", bucketList);
             return resultPage(model, hm);
         } catch (IOException e) {
             e.printStackTrace();

@@ -14,10 +14,10 @@ import java.util.List;
 @Repository
 public interface TwitterMapper {
 
-    @Select("select * from t_twitter limit 1000000")
+    @Select("select * from t_twitter limit 200000")
     List<TwitterData> getAll();
 
-    @Select("select * from t_twitter_temp limit 1000000")
+    @Select("select * from t_twitter_temp limit 200000")
     List<TwitterData> getAllTemp();
 
     @Insert({"<script>",
