@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Search - Twitter Keyword Search</title>
+	<title>Result - Twitter Keyword Search</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
@@ -31,60 +31,60 @@
 		</ul>
 	</nav>
 
-	<!-- Main -->
-	<div id="main" class="alt">
+	<!-- Banner -->
+	<section class="main">
+		<div class="inner">
+			<header class="major">
+				<h1>Result</h1>
+			</header>
+		</div>
+	</section>
 
-		<!-- One -->
-		<section id="one">
-			<div class="inner">
-				<header class="major">
-					<h2>Search</h2>
-				</header>
-				<span class="image main"><img th:src="@{/images/pic11.jpg}" alt="" /></span>
-				<p>Search the internal database (dataset size: 327999) by inputting your keywords below by separating all the keywords using space. Eg. "answer love cute have"
-					<br>You can also search your own files by uploading CSV file with Col1:Date, Col2:Twitter Text format. The first row will be ignored automatically.
-					<br><strong>WARNING:</strong> The file size is limited to 60Mb, or you may get an Error</p>
-			</div>
-		</section>
-
-	</div>
-
-	<!-- Contact -->
 	<section id="contact">
 		<div class="inner">
 			<section>
-				<form method="POST" th:action="@{/searchin}">
-					<h4>Search Internal Dataset</h4>
-					<div class="fields">
-						<div class="field">
-							<label for="keywordsin">Keywords</label>
-							<textarea name="keywordsin" id="keywordsin" rows="5" placeholder="Input your key words and separate them using spaces..."></textarea>
-						</div>
-					</div>
-					<ul class="actions">
-						<li><input type="text" placeholder="Number to display" name="kin"></li>
-						<li><input type="submit" value="Internal Search"/></li>
-						<li><input type="reset" value="Clear" /></li>
-					</ul>
-				</form>
+				<h1>Bucket Sort</h1>
+				<h2 th:text="${bucketSortTime}"></h2>
+				<table>
+					<thead>
+						<tr>
+							<th>DATE</th>
+							<th>TWITTER</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="twitterData : ${bucketList}">
+							<td th:text="${twitterData.twDate}">id</td>
+							<td th:text="${twitterData.twString}">用户名</td>
+						</tr>
+					</tbody>
+				</table>
 			</section>
 			<section>
-				<form method="POST" th:action="@{/searchex}" enctype="multipart/form-data">
-					<h4>Search External Dataset</h4>
-					<input type="file" name="file" class="icon" /><br/><br/>
-					<div class="fields">
-						<div class="field">
-							<label for="keywordsex">Keywords</label>
-							<textarea name="keywordsex" id="keywordsex" rows="3" placeholder="Input your key words and separate them using spaces..."></textarea>
-						</div>
-					</div>
-					<ul class="actions">
-						<li><input type="text" placeholder="Number to display" name="kex"></li>
-						<li><input type="submit" value="External Search"/></li>
-						<li><input type="reset" value="Clear" /></li>
-					</ul>
-				</form>
+				<h1>Heap Sort</h1>
+				<h2 th:text="${heapSortTime}"></h2>
+				<table>
+					<thead>
+					<tr>
+						<th>DATE</th>
+						<th>TWITTER</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="twitterData : ${heapList}">
+						<td th:text="${twitterData.twDate}">id</td>
+						<td th:text="${twitterData.twString}">用户名</td>
+					</tr>
+					</tbody>
+				</table>
 			</section>
+		</div>
+	</section>
+
+	<!-- Banner -->
+	<section class="major">
+		<div class="inner">
+			<li><a th:href="@{/search}" class="button next scrolly">Try Again</a></li>
 		</div>
 	</section>
 
@@ -102,7 +102,6 @@
 			</ul>
 		</div>
 	</footer>
-
 </div>
 
 <!-- Scripts -->

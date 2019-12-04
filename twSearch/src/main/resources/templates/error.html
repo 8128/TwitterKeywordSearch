@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Twitter Keyword Search</title>
+	<title>Error - Twitter Keyword Search</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
@@ -14,7 +14,7 @@
 
 				<!-- Header -->
 				<header id="header" class="alt">
-					<a href="index.html" class="logo"><strong>Twitter Keyword Search</strong> <span>by Tianyi</span></a>
+					<a th:href="@{/index}" class="logo"><strong>Twitter Keyword Search</strong> <span>by Tianyi</span></a>
 					<nav>
 						<a href="#menu">Menu</a>
 					</nav>
@@ -24,7 +24,7 @@
 				<nav id="menu">
 					<ul class="links">
 						<li><a th:href="@{/search}">Search</a></li>
-						<li><a th:href="@{/result}">Last Result</a></li>
+						<li><a th:href="@{/contact}">Contact Me</a></li>
 					</ul>
 					<ul class="actions stacked">
 						<li><a th:href="@{/}" class="button primary fit">Home Page</a></li>

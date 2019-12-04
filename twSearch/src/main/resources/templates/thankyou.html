@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Search - Twitter Keyword Search</title>
+	<title>Thank You - Twitter Keyword Search</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
@@ -38,12 +38,9 @@
 		<section id="one">
 			<div class="inner">
 				<header class="major">
-					<h2>Search</h2>
+					<h2>Thank you for your feedback!</h2>
 				</header>
-				<span class="image main"><img th:src="@{/images/pic11.jpg}" alt="" /></span>
-				<p>Search the internal database (dataset size: 327999) by inputting your keywords below by separating all the keywords using space. Eg. "answer love cute have"
-					<br>You can also search your own files by uploading CSV file with Col1:Date, Col2:Twitter Text format. The first row will be ignored automatically.
-					<br><strong>WARNING:</strong> The file size is limited to 60Mb, or you may get an Error</p>
+				<p>Thank you for taking time in finishing the feedback form! Your feedback is very important for me!</p>
 			</div>
 		</section>
 
@@ -53,37 +50,51 @@
 	<section id="contact">
 		<div class="inner">
 			<section>
-				<form method="POST" th:action="@{/searchin}">
-					<h4>Search Internal Dataset</h4>
+				<form method="post" th:action="@{/thankyou}">
 					<div class="fields">
+						<div class="field half">
+							<label for="name">Name</label>
+							<input type="text" name="name" id="name" />
+						</div>
+						<div class="field half">
+							<label for="email">Email</label>
+							<input type="text" name="email" id="email" />
+						</div>
 						<div class="field">
-							<label for="keywordsin">Keywords</label>
-							<textarea name="keywordsin" id="keywordsin" rows="5" placeholder="Input your key words and separate them using spaces..."></textarea>
+							<label for="message">Message</label>
+							<textarea name="message" id="message" rows="6"></textarea>
 						</div>
 					</div>
 					<ul class="actions">
-						<li><input type="text" placeholder="Number to display" name="kin"></li>
-						<li><input type="submit" value="Internal Search"/></li>
+						<li><input type="submit" value="Send Message" class="primary" /></li>
 						<li><input type="reset" value="Clear" /></li>
 					</ul>
 				</form>
 			</section>
-			<section>
-				<form method="POST" th:action="@{/searchex}" enctype="multipart/form-data">
-					<h4>Search External Dataset</h4>
-					<input type="file" name="file" class="icon" /><br/><br/>
-					<div class="fields">
-						<div class="field">
-							<label for="keywordsex">Keywords</label>
-							<textarea name="keywordsex" id="keywordsex" rows="3" placeholder="Input your key words and separate them using spaces..."></textarea>
-						</div>
+			<section class="split">
+				<section>
+					<div class="contact-method">
+						<span class="icon solid alt fa-envelope"></span>
+						<h3>Email</h3>
+						<a href="mailto:tty8128@Bu.edu">tty8128@bu.edu</a>
 					</div>
-					<ul class="actions">
-						<li><input type="text" placeholder="Number to display" name="kex"></li>
-						<li><input type="submit" value="External Search"/></li>
-						<li><input type="reset" value="Clear" /></li>
-					</ul>
-				</form>
+				</section>
+				<section>
+					<div class="contact-method">
+						<span class="icon solid alt fa-phone"></span>
+						<h3>Phone</h3>
+						<span>(+1) 857-498-0354</span>
+					</div>
+				</section>
+				<section>
+					<div class="contact-method">
+						<span class="icon solid alt fa-home"></span>
+						<h3>Address</h3>
+						<span>40 Malvern St<br />
+										Boston, MA, 02134<br />
+										United States of America</span>
+					</div>
+				</section>
 			</section>
 		</div>
 	</section>

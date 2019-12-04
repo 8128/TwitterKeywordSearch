@@ -34,6 +34,9 @@ public class ReadCsvImpl implements ReadCsv{
                 String item[] = line.split(",");
                 TwitterData tw = new TwitterData();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                if (item.length < 2) {
+                    continue;
+                }
                 Date date = dateFormat.parse(item[0]);
                 tw.setTwDate(date);
                 tw.setTwString(item[1]);
