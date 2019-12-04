@@ -5,8 +5,10 @@ import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -14,10 +16,18 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan("com.tty.twsearch.mapper")
 @ComponentScan("com.tty.twsearch.*")
 @ComponentScan(basePackageClasses= MainController.class)
-public class TwSearchApplication {
+public class TwSearchApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TwSearchApplication.class, args);
+	}
+
+
+	//为了打包springboot项目
+	@Override
+	protected SpringApplicationBuilder configure(
+			SpringApplicationBuilder builder) {
+		return builder.sources(this.getClass());
 	}
 
 	// solve the problem that when file is larger than 10mb the link will be reset
