@@ -28,6 +28,7 @@ public class ReadCsvImpl implements ReadCsv{
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             reader.readLine();
+            reader.readLine();
             String line = null;
             List<TwitterData> list = new ArrayList<>();
             while((line=reader.readLine())!=null){

@@ -43,6 +43,7 @@
 				</header>
 				<span class="image main"><img th:src="@{/images/pic11.jpg}" alt="" /></span>
 				<p>Search the huge internal database by inputting your keywords below with space separated keywords. Eg. "answer love cute have"
+					<br>And then put the size of twitter list that you would like to see in the result page, Eg. "10"
 					<br>You can also search your own files by uploading CSV file with Col1:Date(yyyyMMdd), Col2:Twitter Text format. The first row will be ignored automatically.
 					<br><strong>WARNING:</strong> The file size is limited to 20Mb, or you may get an error from the website.
                     <br>No matter how large your file might be, you will only get a dataset with size of 200000.
@@ -65,7 +66,7 @@
 						</div>
 					</div>
 					<ul class="actions">
-						<li><input type="text" placeholder="Number to display" name="kin"></li>
+						<li><input type="text" placeholder="Size" name="kin"></li>
 						<li><input type="submit" value="Internal Search"/></li>
 						<li><input type="reset" value="Clear" /></li>
 					</ul>
@@ -82,7 +83,7 @@
 						</div>
 					</div>
 					<ul class="actions">
-						<li><input type="text" placeholder="Number to display" name="kex"></li>
+						<li><input type="text" placeholder="Size" name="kex"></li>
 						<li><input type="submit" value="External Search"/></li>
 						<li><input type="reset" value="Clear" /></li>
 					</ul>

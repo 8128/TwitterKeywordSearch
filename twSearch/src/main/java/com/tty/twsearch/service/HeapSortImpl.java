@@ -27,8 +27,8 @@ public class HeapSortImpl implements HeapSort {
         PriorityQueue<TwitterData> pq = new PriorityQueue<>(new Comparator<TwitterData>() {
             @Override
             public int compare(TwitterData o1, TwitterData o2) {
-                Integer sim1 = returnSimilarity(o1.getTwString(), hs);
-                Integer sim2 = returnSimilarity(o2.getTwString(), hs);
+                Integer sim1 = returnSimilarity(o1.getSplitedString(), hs);
+                Integer sim2 = returnSimilarity(o2.getSplitedString(), hs);
                 return sim1.compareTo(sim2);
             }
         });
@@ -46,6 +46,7 @@ public class HeapSortImpl implements HeapSort {
         return ans;
     }
 
+    /**
     @Override
     public List<TwitterData> topKInternal(int k, String[] words) {
         return topK(k, words, twitterMapper.getAll());
@@ -55,4 +56,5 @@ public class HeapSortImpl implements HeapSort {
     public List<TwitterData> topKTemp(int k, String[] words) {
         return topK(k, words, twitterMapper.getAllTemp());
     }
+    **/
 }

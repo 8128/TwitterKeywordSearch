@@ -7,10 +7,9 @@ import java.util.HashSet;
  * @date :   Created in 2019-12-01 23:11
  */
 public class Similarity {
-    public static int returnSimilarity(String twitter, HashSet<String> hs){
+    public static int returnSimilarity(String[] twitter, HashSet<String> hs){
         int ans = 0;
-        String[] strs = twitter.split(" ");
-        for (String str : strs) {
+        for (String str : twitter) {
             if (hs.contains(str)) {
                 ans++;
             }

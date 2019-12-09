@@ -3,6 +3,7 @@ package com.tty.twsearch.controller;
 import com.tty.twsearch.pojo.TwitterData;
 import com.tty.twsearch.service.BucketSort;
 import com.tty.twsearch.service.HeapSort;
+import com.tty.twsearch.service.PreprocessData;
 import com.tty.twsearch.service.ReadCsv;
 import com.tty.twsearch.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class MainController {
 
     @Autowired
     ReadCsv readCsv;
+
+    @Autowired
+    PreprocessData preprocessData;
 
     @RequestMapping("/")
     public String mainPage(){
@@ -71,13 +75,14 @@ public class MainController {
     public String inSearchPage(Model model, @RequestParam("kin") String k, @RequestParam("keywordsin")String keywords) {
         HashMap<String, Object> hm = new HashMap<>();
         String[] words = keywords.split(" ");
+        List<TwitterData> twitterData = preprocessData.preprocess("internal");
         long startTime = System.currentTimeMillis();
-        List<TwitterData> heapList = heapSort.topKInternal(Integer.valueOf(k), words);
+        List<TwitterData> heapList = heapSort.topK(Integer.valueOf(k), words, twitterData);
         long endTime = System.currentTimeMillis();
         hm.put("heapSortTime", (endTime - startTime) + "ms");
         hm.put("heapList", heapList);
         startTime = System.currentTimeMillis();
-        List<TwitterData> bucketList = bucketSort.topKInternal(Integer.valueOf(k), words);
+        List<TwitterData> bucketList = bucketSort.topK(Integer.valueOf(k), words, twitterData);
         endTime = System.currentTimeMillis();
         hm.put("bucketSortTime", (endTime - startTime) + "ms");
         hm.put("bucketList", bucketList);
@@ -98,13 +103,14 @@ public class MainController {
             file.transferTo(newFile);
             readCsv.readCsv(newFile.getAbsolutePath());
             newFile.delete();
+            List<TwitterData> list = preprocessData.preprocess("external");
             long startTime = System.currentTimeMillis();
-            List<TwitterData> heapList = heapSort.topKTemp(Integer.valueOf(k), words);
+            List<TwitterData> heapList = heapSort.topK(Integer.valueOf(k), words, list);
             long endTime = System.currentTimeMillis();
             hm.put("heapSortTime", (endTime - startTime) + "ms");
             hm.put("heapList", heapList);
             startTime = System.currentTimeMillis();
-            List<TwitterData> bucketList = bucketSort.topKTemp(Integer.valueOf(k), words);
+            List<TwitterData> bucketList = bucketSort.topK(Integer.valueOf(k), words, list);
             endTime = System.currentTimeMillis();
             hm.put("bucketSortTime", (endTime - startTime) + "ms");
             hm.put("bucketList", bucketList);

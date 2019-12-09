@@ -28,7 +28,7 @@ public class BucketSortImpl implements BucketSort {
         HashSet<String> hs = new HashSet<>();
         hs.addAll(Arrays.asList(words));
         for (TwitterData tw : inputList) {
-            int similarity = returnSimilarity(tw.getTwString(), hs);
+            int similarity = returnSimilarity(tw.getSplitedString(), hs);
             if (lists[similarity] == null) {
                 lists[similarity] = new ArrayList<>();
                 lists[similarity].add(tw);
@@ -50,6 +50,7 @@ public class BucketSortImpl implements BucketSort {
         return ans;
     }
 
+    /**
     @Override
     public List<TwitterData> topKInternal(int k, String[] words) {
         return topK(k, words, twitterMapper.getAll());
@@ -59,4 +60,5 @@ public class BucketSortImpl implements BucketSort {
     public List<TwitterData> topKTemp(int k, String[] words) {
         return topK(k, words, twitterMapper.getAllTemp());
     }
+    **/
 }

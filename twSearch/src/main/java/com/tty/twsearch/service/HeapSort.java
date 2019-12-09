@@ -8,7 +8,9 @@ public interface HeapSort {
 
     List<TwitterData> topK(int k, String[] words, List<TwitterData> inputList);
 
+    /**
     List<TwitterData> topKInternal(int k, String[] words);
 
     List<TwitterData> topKTemp(int k, String[] words);
+     **/
 }

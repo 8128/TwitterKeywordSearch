@@ -1,5 +1,6 @@
 package com.tty.twsearch.pojo;
 
+import java.util.Arrays;
 import java.util.Date;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ public class TwitterData {
 
     private Date twDate;
     private String twString;
+    private String[] splitedString;
 
     public Date getTwDate() {
         return twDate;
@@ -30,11 +32,20 @@ public class TwitterData {
         this.twString = twString;
     }
 
+    public String[] getSplitedString() {
+        return splitedString;
+    }
+
+    public void setSplitedString() {
+        this.splitedString = twString.split(" ");
+    }
+
     @Override
     public String toString() {
         return "TwitterData{" +
                 "twDate=" + twDate +
                 ", twString='" + twString + '\'' +
+                ", splitedString=" + Arrays.toString(splitedString) +
                 '}';
     }
 }
