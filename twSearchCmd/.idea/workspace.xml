@@ -124,7 +124,8 @@
     <option name="totallyTimeSpent" value="383000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-150" y="-1080" width="1920" height="1080" extended-state="0" />
+    <frame x="-150" y="-1080" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" />
       <window_info id="Image Layers" />

@@ -33,7 +33,10 @@ public class BucketSortImpl implements BucketSort {
                 lists[similarity] = new ArrayList<>();
                 lists[similarity].add(tw);
             }else {
-                lists[similarity].add(tw);
+                if(lists[similarity].size() < k) {
+                    lists[similarity].add(tw);
+                }
+                //lists[similarity].add(tw);
             }
         }
         List<TwitterData> ans = new ArrayList<>();

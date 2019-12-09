@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.tty</groupId>
 	<artifactId>twSearch</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<name>twSearch</name>
 	<description>Twitter Keyword Search</description>
 

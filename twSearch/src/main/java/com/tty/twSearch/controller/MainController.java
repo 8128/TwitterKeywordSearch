@@ -75,14 +75,15 @@ public class MainController {
     public String inSearchPage(Model model, @RequestParam("kin") String k, @RequestParam("keywordsin")String keywords) {
         HashMap<String, Object> hm = new HashMap<>();
         String[] words = keywords.split(" ");
+        int size = Integer.valueOf(k);
         List<TwitterData> twitterData = preprocessData.preprocess("internal");
         long startTime = System.currentTimeMillis();
-        List<TwitterData> heapList = heapSort.topK(Integer.valueOf(k), words, twitterData);
+        List<TwitterData> heapList = heapSort.topK(size, words, twitterData);
         long endTime = System.currentTimeMillis();
         hm.put("heapSortTime", (endTime - startTime) + "ms");
         hm.put("heapList", heapList);
         startTime = System.currentTimeMillis();
-        List<TwitterData> bucketList = bucketSort.topK(Integer.valueOf(k), words, twitterData);
+        List<TwitterData> bucketList = bucketSort.topK(size, words, twitterData);
         endTime = System.currentTimeMillis();
         hm.put("bucketSortTime", (endTime - startTime) + "ms");
         hm.put("bucketList", bucketList);
