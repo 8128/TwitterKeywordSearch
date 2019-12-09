@@ -2,22 +2,46 @@
 
 [![Build Status](https://travis-ci.com/8128/TwitterKeywordSearch.svg?branch=master)](https://travis-ci.com/8128/TwitterKeywordSearch)
 
-The Twitter Keyword Search is a Springboot web application for keyword searching.
+The Twitter Keyword Search is a Springboot web application for twitter keyword searching. It is running at [Twitter Keyword Search](http://www.tty8128.com)
 
-## Architecture
+The Twitter Keyword Search CMD is a simple maven command line application for twitter keyword searching.
 
-### Database
+## Quick Start
 
-The backend database is MySQL, it has pre-stored CSV file for 30000+ twitters. It can be used as demo. Also, users are welcomed to upload their own databases for twitter searching. Everytime users upload a new file to the application, the temp table will be cleared and new data will be sent in.
+### Commandline tool
 
-- t_twitter_internal
-- t_twitter_temp
+Simply use the command in the folder where you place my twSearchCmd-1.0-SNAPSHOT.jar file
 
-The project is using MyBatis as the solution for MySQL reading. TwitterData object will be generated when the tables are being read.
+```shell
+java -jar twSearchCmd-1.0-SNAPSHOT.jar
+```
 
-### Template Engine:
+And then follow the instructions in the application.
 
-Thymeleaf is chose to be the template engine of this project.
+### Springboot Application
+
+It is complex to run it by yourself, you can access the website at:
+
+[Twitter Search](http://www.tty8128.com)
+
+If you still want to run it yourself, firstly you need to find the file twSearch/src/main/resources/application_example.yml  and rename the file to application.yml and change the properties inside to run it with your MySQL settings. 
+
+You also need to create tables using sql queries in twSearch/src/main/resources/all.sql  Please do not forget to upload a CSV file to the tw_search database's t_twitter table. 
+
+Then you need to complie the maven project using the command below:
+
+```shell
+mvn clean
+mvn install
+```
+
+You will find the jar was generated at /twSearch/target. Using the jar with:
+
+```shell
+java -jar twSearch-1.0.2-SNAPSHOT.jar
+```
+
+You can access the website now using port 8080. If you are using your local pc, then the address should be localhost:8080 or 127.0.0.1:8080
 
 ## Algorithm
 
@@ -58,5 +82,36 @@ The steps are:
 4. Go to step (2) unless the considered range of the list is one element.
 
 The buildMaxHeap() operation is run once, and is O(n) in performance. The siftDown() function is O(log n), and is called n times. Therefore, the performance of this algorithm is O(n + n log n) = O(n log n).
+
+## Realization 
+
+### Similarity Compute
+
+### Bucket Sort
+
+As the twitter's length is limited to 140 words, 
+
+## Architecture
+
+### CMD
+
+The CMD application is rather simple. There is only one class and when user starts the application the constructor will load the file. Then bucket sort and heap sort will be executed. 
+
+### Springboot application
+
+The springboot application simply use the MVC architecture. It was done by the MyBatis + MySQL + thymeleaf in my case.
+
+#### Database
+
+The backend database is MySQL, it has pre-stored CSV file for 200000+ twitters. It can be used as demo. Also, users are welcomed to upload their own databases for twitter searching. Everytime users upload a new file to the application, the temp table will be cleared and new data will be sent in.
+
+- t_twitter_internal
+- t_twitter_temp
+
+The project is using MyBatis as the solution for MySQL reading. TwitterData object will be generated when the tables are being read.
+
+#### Template Engine:
+
+Thymeleaf is chosen to be the template engine of this project.
 
 ## Functions

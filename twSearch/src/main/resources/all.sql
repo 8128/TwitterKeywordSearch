@@ -1,3 +1,7 @@
+create database tw_search;
+
+use tw_search;
+
 create table t_twitter_temp (
     `tw_id` int unsigned auto_increment,
     `tw_date` DATE,

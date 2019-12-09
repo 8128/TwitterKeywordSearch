@@ -1,0 +1,28 @@
+spring:
+  thymeleaf:
+    # turn off cache for debugging
+    cache: false
+  mvc:
+    favicon:
+      enabled: false
+  datasource:
+    url: your mysql URL
+    username: your mysql username
+    password: your mysql password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: org.apache.commons.dbcp2.BasicDataSource
+    tomcat:
+      max-idle: 10
+      max-active: 50
+      max-wait: 10000
+      initial-size: 5
+  servlet:
+    multipart:
+      max-file-size: 20000000
+      max-request-size: 20000000
+server:
+  port: 8080
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.tty.twsearch.pojo
