@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.com/8128/TwitterKeywordSearch.svg?branch=master)](https://travis-ci.com/8128/TwitterKeywordSearch)
 
-The Twitter Keyword Search is a Springboot web application for twitter keyword searching. It is running at
+The Twitter Keyword Search is a Springboot web application for twitter keyword searching. The folder is twSearch, and it is running at
 
  [Twitter Keyword Search](http://www.tty8128.com)
 
-The Twitter Keyword Search CMD is a simple maven command line application for twitter keyword searching.
+The Twitter Keyword Search CMD is a simple maven command line application for twitter keyword searching. The folder is twSearchCmd
 
 ## Quick Start
 
