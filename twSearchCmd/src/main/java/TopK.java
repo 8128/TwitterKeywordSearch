@@ -245,6 +245,7 @@ public class TopK {
         System.out.println("Please enter the size of the result:");
         int k = Integer.valueOf(this.scanner.nextLine());
         setK(k);
+        System.out.println("\n***********************************************");
         System.out.println("\nUsing the bucket sort...");
         long start = System.currentTimeMillis();
         List<String[]> ans = bucketSort();
@@ -254,7 +255,8 @@ public class TopK {
         for (String[] strs : ans) {
             System.out.println(toString(strs));
         }
-        System.out.println("\n \n \nUsing the heap sort...");
+        System.out.println("\n \n \n***********************************************");
+        System.out.println("\nUsing the heap sort...");
         start = System.currentTimeMillis();
         ans = heapSort();
         end = System.currentTimeMillis();
@@ -263,15 +265,16 @@ public class TopK {
         for (String[] strs : ans) {
             System.out.println(toString(strs));
         }
-        System.out.println("\n \n \nUsing the reverse index...");
+        System.out.println("\n \n \n***********************************************");
+        System.out.println("\nUsing the reverse index...");
         start = System.currentTimeMillis();
         List<Integer> reverseAns = new ArrayList<>();
         HashMap<Integer, Integer> reverseMap = revelentWithRIndex();
         end = System.currentTimeMillis();
         System.out.println("The time cost is " + (end - start) + " ms");
         System.out.println("All Relevant Twitters Found\n");
-
-        System.out.println("\n \n \nUsing the bucket sort to sort relevant twitters...");
+        System.out.println("\n \n \n***********************************************");
+        System.out.println("\nUsing the bucket sort to sort relevant twitters...");
         start = System.currentTimeMillis();
         reverseAns = reIndexBucketSort(reverseMap);
         end = System.currentTimeMillis();
@@ -280,7 +283,8 @@ public class TopK {
         for (int index : reverseAns) {
             System.out.println(toString(data.get(index)));
         }
-        System.out.println("\n \n \nUsing the Java default sort to sort relevant twitters...");
+        System.out.println("\n \n \n***********************************************");
+        System.out.println("\nUsing the Java default sort to sort relevant twitters...");
         start = System.currentTimeMillis();
         reverseAns = reIndexSort(reverseMap);
         end = System.currentTimeMillis();
