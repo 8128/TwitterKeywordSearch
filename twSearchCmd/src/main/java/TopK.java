@@ -174,7 +174,7 @@ public class TopK {
         System.out.println("Please enter the size of the result:");
         int k = Integer.valueOf(this.scanner.nextLine());
         setK(k);
-        System.out.println("Using the bucket sort...");
+        System.out.println("\nUsing the bucket sort...");
         long start = System.currentTimeMillis();
         List<String[]> ans = bucketSort();
         long end = System.currentTimeMillis();
