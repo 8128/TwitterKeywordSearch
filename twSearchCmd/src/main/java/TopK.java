@@ -42,8 +42,8 @@ public class TopK {
         System.out.println("Start to create reversed index map");
         long start = System.currentTimeMillis();
         this.hm = new HashMap<>();
-        for (int i = 0; i < data.size(); i++) {
-            String[] strs = data.get(i);
+        for (int i = 0; i < this.data.size(); i++) {
+            String[] strs = this.data.get(i);
             HashMap<String, Integer> temp = new HashMap<>();
             for (String str : strs) {
                 temp.put(str, temp.getOrDefault(str, 0) + 1);
@@ -76,14 +76,14 @@ public class TopK {
                 lists[sim] = new ArrayList<String[]>();
                 lists[sim].add(strs);
             }else {
-                if(lists[sim].size() < k) {
+                if(lists[sim].size() < this.k) {
                     lists[sim].add(strs);
                 }
             }
         }
         List<String[]> ans = new ArrayList<>();
         int pivot = 139;
-        while (ans.size() < k && pivot >= 0) {
+        while (ans.size() < this.k && pivot >= 0) {
             if (lists[pivot] != null) {
                 ans.addAll(lists[pivot]);
             }
@@ -118,11 +118,11 @@ public class TopK {
         return ans;
     }
 
-    public List<String[]> withRIndex() {
+    public List<Integer> withRIndex() {
         HashMap<Integer, Integer> temp = new HashMap<>();
         for (String str : this.keywords) {
             if (this.hm.containsKey(str)) {
-                HashMap<Integer, Integer> insideMap = hm.get(str);
+                HashMap<Integer, Integer> insideMap = this.hm.get(str);
                 for (int key : insideMap.keySet()) {
                     temp.put(key, temp.getOrDefault(key, 0) + insideMap.get(key));
                 }
@@ -135,12 +135,10 @@ public class TopK {
                 return Integer.compare(temp.get(o2), temp.get(o1));
             }
         });
-        ans = ans.subList(0, this.k);
-        List<String[]> finalAns = new ArrayList<>();
-        for (int i : ans) {
-            finalAns.add(data.get(i));
+        if (ans.size() > this.k) {
+            ans = ans.subList(0, this.k);
         }
-        return finalAns;
+        return ans;
     }
 
     public int similarity(String[] strs) {
@@ -193,13 +191,14 @@ public class TopK {
             System.out.println(toString(strs));
         }
         System.out.println("\n \n \nUsing the reverse index...");
+        List<Integer> reverseAns = new ArrayList<>();
         start = System.currentTimeMillis();
-        ans = withRIndex();
+        reverseAns = withRIndex();
         end = System.currentTimeMillis();
         System.out.println("The time cost is " + (end - start) + " ms");
         System.out.println("The answer generated is:\n");
-        for (String[] strs : ans) {
-            System.out.println(toString(strs));
+        for (int index : reverseAns) {
+            System.out.println(toString(data.get(index)));
         }
     }
 
