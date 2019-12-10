@@ -85,11 +85,17 @@ The buildMaxHeap() operation is run once, and is O(n) in performance. The siftDo
 
 ## Realization 
 
-### Similarity Compute
+### 1. Similarity Compute
 
-### Bucket Sort
+Firstly
 
-As the twitter's length is limited to 140 words, 
+### 2. Sort
+
+- Bucket Sort
+
+  As the twitter's length is limited to 140 words, 
+
+- Heap Sort
 
 ## Architecture
 

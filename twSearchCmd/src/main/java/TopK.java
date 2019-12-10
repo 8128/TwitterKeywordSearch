@@ -14,7 +14,13 @@ public class TopK {
     private HashSet<String> keywords;
     private int k;
     private Scanner scanner;
+    private HashMap<String, HashMap<Integer, Integer>> hm;
 
+    /**
+     * Constructor for TopK function
+     * In this constructor application will load file and create reverse index
+     * @param scanner : the system input
+     */
     public TopK(Scanner scanner) {
         this.data = new ArrayList<>();
         try {
@@ -32,7 +38,24 @@ public class TopK {
             e.printStackTrace();
         }
         this.scanner = scanner;
-        System.out.println(this.data.size() + " twitters loaded");
+        System.out.println(this.data.size() + " twitters loaded\n");
+        System.out.println("Start to create reversed index map");
+        long start = System.currentTimeMillis();
+        this.hm = new HashMap<>();
+        for (int i = 0; i < data.size(); i++) {
+            String[] strs = data.get(i);
+            HashMap<String, Integer> temp = new HashMap<>();
+            for (String str : strs) {
+                temp.put(str, temp.getOrDefault(str, 0) + 1);
+            }
+            for (String key : temp.keySet()) {
+                HashMap<Integer, Integer> tmp = this.hm.getOrDefault(key, new HashMap<>());
+                tmp.put(i, tmp.getOrDefault(i, 0) + temp.get(key));
+                this.hm.put(key, tmp);
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("Reverse Index time: " + (end - start) + "ms");
     }
 
     public void setKeywords(String words) {
@@ -66,8 +89,8 @@ public class TopK {
             }
             pivot--;
         }
-        if (ans.size() > k) {
-            ans = ans.subList(0,k);
+        if (ans.size() > this.k) {
+            ans = ans.subList(0, this.k);
         }
         return ans;
     }
@@ -81,9 +104,9 @@ public class TopK {
                 return sim1.compareTo(sim2);
             }
         });
-        for (String[] strs : data) {
+        for (String[] strs : this.data) {
             pq.offer(strs);
-            if (pq.size() > k) {
+            if (pq.size() > this.k) {
                 pq.poll();
             }
         }
@@ -93,6 +116,31 @@ public class TopK {
         }
         Collections.reverse(ans);
         return ans;
+    }
+
+    public List<String[]> withRIndex() {
+        HashMap<Integer, Integer> temp = new HashMap<>();
+        for (String str : this.keywords) {
+            if (this.hm.containsKey(str)) {
+                HashMap<Integer, Integer> insideMap = hm.get(str);
+                for (int key : insideMap.keySet()) {
+                    temp.put(key, temp.getOrDefault(key, 0) + insideMap.get(key));
+                }
+            }
+        }
+        List<Integer> ans = new ArrayList<>(temp.keySet());
+        Collections.sort(ans, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return Integer.compare(temp.get(o2), temp.get(o1));
+            }
+        });
+        ans = ans.subList(0, this.k);
+        List<String[]> finalAns = new ArrayList<>();
+        for (int i : ans) {
+            finalAns.add(data.get(i));
+        }
+        return finalAns;
     }
 
     public int similarity(String[] strs) {
@@ -105,6 +153,11 @@ public class TopK {
         return sim;
     }
 
+    /**
+     * to print the String[] to String
+     * @param strs
+     * @return
+     */
     public String toString(String[] strs) {
         StringBuilder sb = new StringBuilder();
         for (String string : strs) {
@@ -114,7 +167,7 @@ public class TopK {
     }
 
     public void sys() {
-        System.out.println("Please Input Your Keywords.");
+        System.out.println("\nPlease Input Your Keywords.");
         System.out.println("Split them using spaces, and end with enter");
         String keywords = this.scanner.nextLine();
         setKeywords(keywords);
@@ -139,6 +192,15 @@ public class TopK {
         for (String[] strs : ans) {
             System.out.println(toString(strs));
         }
+        System.out.println("\n \n \nUsing the reverse index...");
+        start = System.currentTimeMillis();
+        ans = withRIndex();
+        end = System.currentTimeMillis();
+        System.out.println("The time cost is " + (end - start) + " ms");
+        System.out.println("The answer generated is:\n");
+        for (String[] strs : ans) {
+            System.out.println(toString(strs));
+        }
     }
 
 
@@ -153,7 +215,6 @@ public class TopK {
         System.out.println("--------------------------------------------------------------------------------\n");
         System.out.println("Loading CSV File");
         TopK topK = new TopK(scanner);
-        System.out.println("All Data Loaded\n");
         topK.sys();
         while (true) {
             System.out.println("\nIf you want to test again, enter 1.\nEnter anything else will exit the program.");
