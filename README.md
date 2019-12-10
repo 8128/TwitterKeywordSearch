@@ -2,18 +2,20 @@
 
 [![Build Status](https://travis-ci.com/8128/TwitterKeywordSearch.svg?branch=master)](https://travis-ci.com/8128/TwitterKeywordSearch)
 
-The Twitter Keyword Search is a Springboot web application for twitter keyword searching. It is running at [Twitter Keyword Search](http://www.tty8128.com)
+The Twitter Keyword Search is a Springboot web application for twitter keyword searching. It is running at
+
+ [Twitter Keyword Search](http://www.tty8128.com)
 
 The Twitter Keyword Search CMD is a simple maven command line application for twitter keyword searching.
 
 ## Quick Start
 
-### Commandline tool
+### Command line tool
 
 Simply use the command in the folder where you place my twSearchCmd-1.0-SNAPSHOT.jar file
 
 ```shell
-java -jar twSearchCmd-1.0-SNAPSHOT.jar
+java -jar twSearchCmd-2.0-SNAPSHOT.jar
 ```
 
 And then follow the instructions in the application.
@@ -43,59 +45,29 @@ java -jar twSearch-1.0.2-SNAPSHOT.jar
 
 You can access the website now using port 8080. If you are using your local pc, then the address should be localhost:8080 or 127.0.0.1:8080
 
-## Algorithm
+## Implementation
 
-### Bucket Sort
+### Word Matching
 
-Bucket sort, or bin sort, is a sorting algorithm that works by distributing the elements of an array into a number of buckets. Each bucket is then sorted individually, either using a different sorting algorithm, or by recursively applying the bucket sorting algorithm. It is a distribution sort, a generalization of pigeonhole sort, and is a cousin of radix sort in the most-to-least significant digit flavor. Bucket sort can be implemented with comparisons and therefore can also be considered a comparison sort algorithm. The computational complexity depends on the algorithm used to sort each bucket, the number of buckets to use, and whether the input is uniformly distributed.
-
-Bucket sort works as follows:
-
-1. Set up an array of initially empty "buckets".
-2. Scatter: Go over the original array, putting each object in its bucket.
-3. Sort each non-empty bucket.
-4. Gather: Visit the buckets in order and put all elements back into the original array.
-
-#### Analysis
-
-##### Worst-case analysis
-
-Bucket sort is mainly useful when input is uniformly distributed over a range. When the input contains several keys that are close to each other (clustering), those elements are likely to be placed in the same bucket, which results in some buckets containing more elements than average. The worst-case scenario occurs when all the elements are placed in a single bucket. The overall performance would then be dominated by the algorithm used to sort each bucket, which is typically O(n^2) insertion sort, making bucket sort less optimal than O(n*log(n)) comparison sort algorithms like Quicksort.
-
-##### Average-case analysis
-
-K is the bucket size. If k is chosen to be k=Theta (n), then bucket sort runs in O(n) average time, given a uniformly distributed input.
+The keywords will be stored into HashSet, each for O(1) time complexity. Split the twitter into words, and iterate through every single word, use the contains function to check whether the word match any word inside of the hashset, each word for O(1) time complexity. An relevance value will be generated using the number of matching.
 
 ### Heap Sort
 
-In computer science, heapsort is a comparison-based sorting algorithm. Heapsort can be thought of as an improved selection sort: like that algorithm, it divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element and moving that to the sorted region. The improvement consists of the use of a heap data structure rather than a linear-time search to find the maximum.
+Initialize a new PriorityQueue(which implements the heap in Java), set the size to the needed size, and override the Comparator to compare them with the relevance value, and make it a min heapIterate through all the twitters and compute their relevance values. When the heap size reaches the needed size, and after that the new twitter’s relevance value is larger than the min value in the heap, then poll out the min twitter and add the new twitter
 
-Although somewhat slower in practice on most machines than a well-implemented quicksort, it has the advantage of a more favorable worst-case O(n log n) runtime. Heapsort is an in-place algorithm, but it is not a stable sort.
+### Bucket Sort
 
-The Heapsort algorithm involves preparing the list by first turning it into a max heap. The algorithm then repeatedly swaps the first value of the list with the last value, decreasing the range of values considered in the heap operation by one, and sifting the new first value into its position in the heap. This repeats until the range of considered values is one value in length.
+Because the twitter’s length is smaller then 140, the largest relevance value will not be larger than 140, so buckets of 140 will be initialized. Iterate through all the twitter and calculate the relevance between the keywords and twitters, then use it to store the twitter to the bucket[relevance value]Finally, iterate from the last index of the bucket, add twitters until the list reaches the needed size
 
-The steps are:
+### Reverse Index
 
-1. Call the buildMaxHeap() function on the list. Also referred to as heapify(), this builds a heap from a list in O(n) operations.
-2. Swap the first element of the list with the final element. Decrease the considered range of the list by one.
-3. Call the siftDown() function on the list to sift the new first element to its appropriate index in the heap.
-4. Go to step (2) unless the considered range of the list is one element.
+After load all data to list, iterate through all the twitters and store them to a HashMapHashMap<String, HashMap<Integer, Integer>> 
 
-The buildMaxHeap() operation is run once, and is O(n) in performance. The siftDown() function is O(log n), and is called n times. Therefore, the performance of this algorithm is O(n + n log n) = O(n log n).
+First Map: Key - Word / Value - Second HashMap
 
-## Realization 
+Second Map: Key - index of twitter in the data list / Value - this word’s frequency
 
-### 1. Similarity Compute
-
-Firstly
-
-### 2. Sort
-
-- Bucket Sort
-
-  As the twitter's length is limited to 140 words, 
-
-- Heap Sort
+When keywords come in, new a HashMap to store twitter and overall frequency, and compare frequency using Java’s Collections.sort and BucketSort
 
 ## Architecture
 
@@ -119,5 +91,3 @@ The project is using MyBatis as the solution for MySQL reading. TwitterData obje
 #### Template Engine:
 
 Thymeleaf is chosen to be the template engine of this project.
-
-## Functions
