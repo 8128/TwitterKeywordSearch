@@ -18,7 +18,7 @@ public class TopK {
 
     /**
      * Constructor for TopK function
-     * In this constructor application will load file and create reverse index
+     * In this constructor application will load default file and create reverse index
      * @param scanner : the system input
      */
     public TopK(Scanner scanner) {
@@ -26,6 +26,42 @@ public class TopK {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("abcnews-date-text.csv")));
             reader.readLine();
+            reader.readLine();
+            String line;
+            while((line=reader.readLine())!=null){
+                String[] item = line.split(",");
+                if (item.length > 1) {
+                    this.data.add(item[1].split(" "));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.scanner = scanner;
+        System.out.println(this.data.size() + " twitters loaded\n");
+        System.out.println("Start to create reversed index map");
+        long start = System.currentTimeMillis();
+        this.hm = new HashMap<>();
+        for (int i = 0; i < this.data.size(); i++) {
+            String[] strs = this.data.get(i);
+            HashMap<String, Integer> temp = new HashMap<>();
+            for (String str : strs) {
+                temp.put(str, temp.getOrDefault(str, 0) + 1);
+            }
+            for (String key : temp.keySet()) {
+                HashMap<Integer, Integer> tmp = this.hm.getOrDefault(key, new HashMap<>());
+                tmp.put(i, tmp.getOrDefault(i, 0) + temp.get(key));
+                this.hm.put(key, tmp);
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("Reverse Index time: " + (end - start) + "ms");
+    }
+
+    public TopK (Scanner scanner, String path){
+        this.data = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
             reader.readLine();
             String line;
             while((line=reader.readLine())!=null){
@@ -68,6 +104,9 @@ public class TopK {
         this.k = k;
     }
 
+    /**
+     * bucket sort and heap sort iteratively
+     */
     public List<String[]> bucketSort() {
         ArrayList<String[]>[] lists = new ArrayList[140];
         for (String[] strs : this.data) {
@@ -118,7 +157,21 @@ public class TopK {
         return ans;
     }
 
-    public List<Integer> withRIndex() {
+    public int similarity(String[] strs) {
+        int sim = 0;
+        for (String str : strs) {
+            if (this.keywords.contains(str)) {
+                sim++;
+            }
+        }
+        return sim;
+    }
+
+    /**
+     * using the reversed index to solve the problem
+     * @return
+     */
+    public HashMap<Integer, Integer> revelentWithRIndex() {
         HashMap<Integer, Integer> temp = new HashMap<>();
         for (String str : this.keywords) {
             if (this.hm.containsKey(str)) {
@@ -128,27 +181,47 @@ public class TopK {
                 }
             }
         }
-        List<Integer> ans = new ArrayList<>(temp.keySet());
-        Collections.sort(ans, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return Integer.compare(temp.get(o2), temp.get(o1));
+        return temp;
+    }
+
+    public List<Integer> reIndexBucketSort (HashMap<Integer, Integer> wordMap){
+        ArrayList<Integer>[] lists = new ArrayList[140];
+        for (int i : wordMap.keySet()) {
+            if (lists[wordMap.get(i)] == null) {
+                lists[wordMap.get(i)] = new ArrayList<>();
             }
-        });
+            lists[wordMap.get(i)].add(i);
+        }
+        List<Integer> ans = new ArrayList<>();
+        int pivot = 139;
+        while (ans.size() < this.k && pivot >= 0) {
+            if (lists[pivot] != null) {
+                ans.addAll(lists[pivot]);
+            }
+            pivot--;
+        }
         if (ans.size() > this.k) {
             ans = ans.subList(0, this.k);
         }
         return ans;
     }
 
-    public int similarity(String[] strs) {
-        int sim = 0;
-        for (String str : strs) {
-            if (this.keywords.contains(str)) {
-                sim++;
+    /**
+     * Java's own sort, using quick sort when the dataset size is small and merge sort when it is large
+     * @return
+     */
+    public List<Integer> reIndexSort (HashMap<Integer, Integer> wordMap){
+        List<Integer> ans = new ArrayList<>(wordMap.keySet());
+        Collections.sort(ans, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return Integer.compare(wordMap.get(o2), wordMap.get(o1));
             }
+        });
+        if (ans.size() > this.k) {
+            ans = ans.subList(0, this.k);
         }
-        return sim;
+        return ans;
     }
 
     /**
@@ -191,12 +264,28 @@ public class TopK {
             System.out.println(toString(strs));
         }
         System.out.println("\n \n \nUsing the reverse index...");
-        List<Integer> reverseAns = new ArrayList<>();
         start = System.currentTimeMillis();
-        reverseAns = withRIndex();
+        List<Integer> reverseAns = new ArrayList<>();
+        HashMap<Integer, Integer> reverseMap = revelentWithRIndex();
+        end = System.currentTimeMillis();
+        System.out.println("The time cost is " + (end - start) + " ms");
+        System.out.println("All Relevant Twitters Found\n");
+
+        System.out.println("\n \n \nUsing the bucket sort to sort relevant twitters...");
+        start = System.currentTimeMillis();
+        reverseAns = reIndexBucketSort(reverseMap);
         end = System.currentTimeMillis();
         System.out.println("The time cost is " + (end - start) + " ms");
         System.out.println("The answer generated is:\n");
+        for (int index : reverseAns) {
+            System.out.println(toString(data.get(index)));
+        }
+        System.out.println("\n \n \nUsing the Java default sort to sort relevant twitters...");
+        start = System.currentTimeMillis();
+        reverseAns = reIndexSort(reverseMap);
+        end = System.currentTimeMillis();
+        System.out.println("The time cost is " + (end - start) + " ms");
+        System.out.println("The answer generated is:\n \n");
         for (int index : reverseAns) {
             System.out.println(toString(data.get(index)));
         }
@@ -212,8 +301,21 @@ public class TopK {
         System.out.println("|                                                                              |");
         System.out.println("|             return the top relevant twitter with your keywords               |");
         System.out.println("--------------------------------------------------------------------------------\n");
-        System.out.println("Loading CSV File");
-        TopK topK = new TopK(scanner);
+        System.out.println("Enter 1 to enter your own CSV file with absolute path,\nenter anything else to use default CSV");
+        String filechoose = scanner.nextLine();
+        TopK topK = null;
+        if (filechoose.equals("1")) {
+            System.out.println("The CSV file you input should follow the pattern: First col with Date(yyyyMMdd), Second col with twitter");
+            System.out.println("The first line will automatically be ignored.");
+            System.out.println("WARNING: NO TWITTER SHOULD BE LONGER THAN 140 WORDS\n");
+            System.out.println("Please enter the absolute path of your file");
+            String path = scanner.nextLine();
+            System.out.println("Loading Your CSV File");
+            topK = new TopK(scanner, path);
+        } else {
+            System.out.println("Loading Default CSV File");
+            topK = new TopK(scanner);
+        }
         topK.sys();
         while (true) {
             System.out.println("\nIf you want to test again, enter 1.\nEnter anything else will exit the program.");
