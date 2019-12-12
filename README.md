@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/8128/TwitterKeywordSearch.svg?branch=master)](https://travis-ci.com/8128/TwitterKeywordSearch)
 
-[Final slide](https://github.com/8128/TwitterKeywordSearch/blob/master/Final Slide.pdf)
+[Final slide](https://github.com/8128/TwitterKeywordSearch/blob/master/Final%20Slide.pdf)
 
 [Final Report](https://github.com/8128/TwitterKeywordSearch/blob/master/Twitter_Keyword_Search_Final_Report.pdf)
 
